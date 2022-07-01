@@ -1,0 +1,18 @@
+[MeetUs Web]
+test1@meetus.co.kr / !skt2022
+https://qa-web.meetus.co.kr/help
+
+회의ID 958-494-304 비번0000
+https://qa-link.meetus.co.kr/room/985494304?pwd=4FC2E4358133DE9827850040FD9DCAA8
+
+AOS
+https://www.dropbox.com/s/iryl43d3965y4lj/groupcallapp-beta-release-1.5.2.4.apk?dl=1
+
+iOS
+itms-services://?action=download-manifest&url=https://float32.com/meetus/1.5.2.8.ipa.plist
+
+Win10
+https://www.dropbox.com/s/uu9w6bl6crfqk2b/MeetUsSETUP_Beta.exe?dl=1
+
+MacOS
+https://www.dropbox.com/s/hay4c0feuoqh15a/MeetUs-Dev.1.5.2.284.zip?dl=1

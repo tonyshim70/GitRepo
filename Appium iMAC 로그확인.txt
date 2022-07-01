@@ -1,0 +1,33 @@
+[ 10층 iMAC appium server 로그확인 ]
+ssh 211.110.60.23 -p40000
+appsol/Sktapp!
+
+** 로그확인 단말이 접속된 Appium 포트로 Appium 서버확인 
+- Appium 포트 : Watchman - 관리메뉴 - 모바일 디바이스 관리
+https://172.23.118.221:4747/wd/hub
+- port 4747 경우 watchman-appium-25
+/Users/appsol/projects/watchman-appium/vi ecosystem.config.js
+
+     {
+       name: 'watchman-appium-25',
+       script: './node_modules/.bin/appium',
+       args: '--relaxed-security --log-timestamp --local-timezone --port 4747',
+       watch: false,
+     },
+
+** 로그 확인 
+/Users/appsol/.pm2/logs/vi watchman-appium-25-out.log 
+
+[ Watchman 서버로그 확인 ]
+mydesk
+tidc.sktelecom.com, 1106214/00000000
+
+10.40.89.93 ssh 접속, svcapp_su / svcapp_su_center!07
+
+/home/svcapp/watchman/webapps/logs/vi mobile-scenario-job-webapp.log
+
+Search Key
+ - Scenario ID : 508 ==> async job for: 508 ==> task 번호로 검색
+
+
+

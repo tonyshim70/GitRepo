@@ -1,0 +1,47 @@
+
+앱실행 
+/appium/app/launch --> /appium/app/launch 200 --> /appium/log_event --> /appium/log_event 200 
+
+항목 나타날때까지 기다리기
+/element --> {"using":"id","value":"com.skb.smartrc:id/icMyNoti"} --> findElement -->  Got response with status 200 (실패시 404) --> /element 200 1655 ms 
+--> GET~ /displayed --> /displayed 200 20 ms --> /appium/log_event --> /appium/log_event 200 
+
+항목 사라질때까지 기다리기
+/element -->  {"using":"id","value":"com.skt.prod.together:id/chronometer"} --> findElement --> Got response with status 404 --> /element 404 73 ms
+--> /appium/log_event --> /appium/log_event 200 
+
+항목클릭
+/element --> {"using":"id","value":"com.skb.smartrc:id/icMyNoti"} --> findElement -->  Got response with status 200 (실패시 404) --> /element 200 1655 ms 
+--> /click --> click --> Got response with status 200  --> /click 200 88 ms --> /appium/log_event --> /appium/log_event 200 
+
+택스트 일치확인
+/element --> {"using":"id","value":"com.skb.smartrc:id/icMyNoti"} --> findElement -->  Got response with status 200 (실패시 404) --> /element 200 1655 ms 
+--> GET~ /text --> getText --> Got response with status 200, value --> /text 200 564 ms --> /appium/log_event --> /appium/log_event 200
+
+안드로이드 이전 물리버튼
+/press_keycode -->  {"keycode":4} --> pressKeyCode -->  Got response with status 200 --> press_keycode 200 179 ms 
+--> /appium/log_event --> /appium/log_event 200 
+
+텍스트 입력
+/element -->  {"using":"-android uiautomator","value":"resourceId(\"searchKeyword\")"} --> findElement --> Got response with status 200 --> /element 200 680 ms
+--> /value --> setValue --> Got response with status 200 --> /value 200 57 ms --> /appium/log_event --> /appium/log_event 200
+
+일정 시간(초)동안 기다리기
+/appium/log_event --> /appium/log_event 200 1 ms
+
+버퍼링 측정 (30초)
+/element --> {"using":"id","value":"com.skb.smartrc:id/loading"} --> findElement -->  Got response with status 404 --> /element 404 10614 ms
+/element --> {"using":"id","value":"com.skb.smartrc:id/loading"} --> findElement -->  Got response with status 404 --> /element 404 10715 ms
+/element --> {"using":"id","value":"com.skb.smartrc:id/loading"} --> findElement -->  Got response with status 404 --> /element 404 10485 ms 
+--> /appium/log_event --> /appium/log_event 200
+
+안드로이드 좌표 터치
+/touch/perform --> {"actions":[{"action":"tap","options":{"x":720,"y":2800}}]} --> Got response with status 200 --> /touch/perform 200 165 ms 
+--> /appium/log_event --> /appium/log_event 200
+
+안드로이드 좌표 스와이프
+/touch/perform --> {"actions":[{"action":"longPress","options":{"x":550,"y":2000}},{"action":"moveTo","options":{"x":900,"y":2000}},{"action":"release","options":{}}]}
+--> Got response with status 200 --> /touch/perform 200 1985 ms --> /appium/log_event --> /appium/log_event 200
+
+시나리오 종료
+/appium/events --> {"cmd":"execute","startTime":1650514894339,"endTime":1650514894461},{..} --> /appium/events 200 2 ms

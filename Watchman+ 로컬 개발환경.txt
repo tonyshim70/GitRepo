@@ -1,0 +1,176 @@
+[ Intellij 소스 로딩 ]
+1. Project from Version Control
+2. Repository URL
+watchman-spring-app
+https://yj.shim@tde.sktelecom.com/stash/scm/wman/watchman-spring-app.git
+
+watchman_front
+https://yj.shim@tde.sktelecom.com/stash/scm/wman/watchman_front.git
+
+watchman-appium
+https://yj.shim@tde.sktelecom.com/stash/scm/wman/watchman-appium.git
+
+watchman-external-frontend
+https://yj.shim@tde.sktelecom.com/stash/scm/wman/watchman-external-frontend.git
+
+watchman-spring-kotlin-app
+https://yj.shim@tde.sktelecom.com/stash/scm/wman/watchman-spring-kotlin-app.git
+
+watchman_docker
+https://yj.shim@tde.sktelecom.com/stash/scm/wman/watchman_docker.git
+
+watchman_front_v2
+https://yj.shim@tde.sktelecom.com/stash/scm/wman/watchman_front_v2.git
+
+watchman_openapi
+https://yj.shim@tde.sktelecom.com/stash/scm/wman/watchman_openapi.git
+
+watchman_server_web_part
+https://yj.shim@tde.sktelecom.com/stash/scm/wman/watchman_server_web_part.git
+
+
+[ Watchman+ Spring Boot 개발환경 ]
+Git Branch master -> develp 변경
+watchman+ 4개의 webapp 환경설정을 아래와 같이 수정하여 빌드 진행
+각 환경파일은 webapps디렉토리 밑에 각 webapp디렉토리 밑에 src/main/resources 디렉토리에 있음.
+Watchman-alert-trigger-web
+  - application-db-dev.yml 파일 아래와 같이 수정
+spring:
+ datasource:
+  url: jdbc:mysql://211.110.60.23:12306/watchman?serverTimezone=Asia/Seoul&zeroDateTimeBehavior=CONVERT_TO_NULL&useFractionalSeconds=true&useUnicode=yes&characterEncoding=UTF-8&tinyInt1isBit=false
+  username: root
+  password: Qwpo1209
+redis:
+  host: 211.110.60.23
+  port: 12379
+  password:
+custom:
+ influxdb:
+  url: http://211.110.60.23:18086
+  database: watchman
+  retention-policy: autogen
+2.  Watchman-apigw-web
+Application-secret-dev파일 아래와 같이 수정
+custom:
+ watchman:
+  auth:
+   access-token-issuer: http://localhost
+   access-token-secret: secrett
+3. Watchman-manage-web
+Application-db-dev.yml 파일 아래와 같이 수정
+spring:
+ datasource:
+  url: jdbc:mysql://211.110.60.23:12306/watchman?serverTimezone=Asia/Seoul&zeroDateTimeBehavior=CONVERT_TO_NULL&useFractionalSeconds=true&useUnicode=yes&characterEncoding=UTF-8&tinyInt1isBit=false
+  username: root
+  password: Qwpo1209
+ redis:
+  host: 211.110.60.23
+  port: 12379
+  password:
+ quality-db:
+  url: jdbc:mysql://211.110.60.23:12306/app_service_quality?serverTimezone=Asia/Seoul&zeroDateTimeBehavior=CONVERT_TO_NULL&useFractionalSeconds=true&useUnicode=yes&characterEncoding=UTF-8&tinyInt1isBit=false
+  username: root
+  password: Qwpo1209
+  driver-class-name: com.mysql.cj.jdbc.Driver
+custom:
+ influxdb:
+  url: http://211.110.60.23:18086
+  database: watchman
+  retention-policy: autogen
+Application-secret-dev 파일 아래와 같이 수정
+custom:
+ tidc:
+  auth:
+   id-token-issuer: http://clb-svcdesk-an2-dev-web-1521085691.ap-northeast-2.elb.amazonaws.com:8081
+   id-token-audience: 531dcf31-c4a3-4b5c-a478-f28599fe7b50
+   id-token-secret: bfR5ZepAW9RmAMmdyIBqSV51RZFZvh-gz__vIU2q4-yz822w
+   id-token-version: 1.0
+ watchman:
+  auth:
+   #Access-token-issuer: http://localhost
+   #access-token-secret: secrett
+   access-token-issuer: http://localhost
+   access-token-validity-seconds: 10800
+   access-token-secret: secrett
+   refresh-token-issuer: http://localhost/api/auth/token
+   refresh-token-validity-seconds: 86400
+   refresh-token-secret: “watchman-auth-refresh-token-secret123#”
+   refresh-token-version: 1.0
+4. Watchman-mobile-scenario-job-web
+Application-db-dev.yml파일 아래와 같이 수정
+spring:
+ datasource:
+  url: jdbc:mysql://211.110.60.23:12306/watchman?serverTimezone=Asia/Seoul&zeroDateTimeBehavior=CONVERT_TO_NULL&useFractionalSeconds=true&useUnicode=yes&characterEncoding=UTF-8&tinyInt1isBit=false
+  username: root
+  password: Qwpo1209
+ redis:
+  host: 211.110.60.23
+  port: 12379
+  password:
+ quality-db:
+  url: jdbc:mysql://211.110.60.23:12306/app_service_quality?serverTimezone=Asia/Seoul&zeroDateTimeBehavior=CONVERT_TO_NULL&useFractionalSeconds=true&useUnicode=yes&characterEncoding=UTF-8&tinyInt1isBit=false
+  username: root
+  password: Qwpo1209
+  driver-class-name: com.mysql.cj.jdbc.Driver
+custom:
+ influxdb:
+  url: http://211.110.60.23:18086
+  database: watchman
+  retention-policy: autogen 
+
+[ watchman_front 실행환경  ]
+** notepad++ ==> Text editor로 좋음
+1. nginx 설치 (Frontend와 Backend 연결)
+  - http://nginx.org/en/download.html 
+  - Stable Version -> Windows 버전 설치
+  - nginx-1.20.2\conf/nginx.conf 파일 수정
+	server {
+		listen 80;
+		location / {
+			proxy_pass http://localhost:3000;
+		}
+		location /if {
+			proxy_pass http://211.110.60.23:12500;
+		}
+		location /api {
+			proxy_pass http://localhost:8090;
+		}
+	  }
+   - nginx.exe 실행
+
+2. node.js 설치
+  - https://nodejs.org/ko/  -> windows, 안정적/신뢰성 높음 다운로드 설치 
+  - CMD창 --> npm --version
+
+3. yarn 설치
+  - CMD창 --> C:\WatchMAN\watchman_front\npm install -g yarn
+  - yarn --version
+  - watchman_front build
+  - C:\WatchMAN\watchman_front\yarn install
+
+[ API Test 환경 ]
+1. 크롬 --> Talend API Tester 확장프로그램 설치
+2. 크롬 --> 확장프로그램 -->  Talend API Tester 실행
+3. 401 Unauthorized 발생시
+  - 크롬 F12 개발자 모드 --> Watchman+ 로그인 --> network --> service --> Reqest Headers/Authorization --> Bearer ~~~ 복사
+  - HEADERS --> Authorizaion : --> 복사한 값 붙어넣기
+
+[ WatchMAN+ 로컬환경 실행 ]
+1. watchman-spring-app 실행
+  - Intellij  watchman-spring-app Project 로드 
+   --> Build Project
+   --> 5개 Configuration(yml 파일) 모두 실행 --> WatchmanNotificationWebApplication은 오류로 4개만 실행
+2. nginx실행
+   - C:\WatchMAN\nginx-1.20.2
+   - nginx.exe 실행
+3. watchman_front 실행  ]
+  - Intellij  watchman_front 로드
+  - terminal --> CMD --> yarn start
+  - 최종적으로 http://localhost로 Watchman+ 실행 확인
+
+ 
+
+
+
+
+
